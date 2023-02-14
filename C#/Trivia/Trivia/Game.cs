@@ -66,7 +66,12 @@ namespace Trivia
 
             if (_inPenaltyBox[_currentPlayer])
             {
-                if (roll % 2 != 0)
+                if (IsEven(roll))
+                {
+                    Console.WriteLine(_players[_currentPlayer] + " is not getting out of the penalty box");
+                    _isGettingOutOfPenaltyBox = false;
+                }
+                else
                 {
                     _isGettingOutOfPenaltyBox = true;
 
@@ -74,11 +79,6 @@ namespace Trivia
                     UpdatePosition(roll);
                     Console.WriteLine("The category is " + CurrentCategory());
                     AskQuestion();
-                }
-                else
-                {
-                    Console.WriteLine(_players[_currentPlayer] + " is not getting out of the penalty box");
-                    _isGettingOutOfPenaltyBox = false;
                 }
             }
             else
@@ -88,6 +88,11 @@ namespace Trivia
                 Console.WriteLine("The category is " + CurrentCategory());
                 AskQuestion();
             }
+        }
+
+        private static bool IsEven(int roll)
+        {
+            return roll % 2 == 0;
         }
 
         private void UpdatePosition(int roll)
