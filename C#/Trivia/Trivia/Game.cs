@@ -13,27 +13,12 @@ namespace Trivia
 
         private readonly bool[] _inPenaltyBox = new bool[6];
 
-        private readonly LinkedList<string> _popQuestions = new LinkedList<string>();
-        private readonly LinkedList<string> _scienceQuestions = new LinkedList<string>();
-        private readonly LinkedList<string> _sportsQuestions = new LinkedList<string>();
-        private readonly LinkedList<string> _rockQuestions = new LinkedList<string>();
-
         private int _currentPlayer;
+        private readonly Category _category;
 
         public Game()
         {
-            for (var i = 0; i < 50; i++)
-            {
-                _popQuestions.AddLast("Pop Question " + i);
-                _scienceQuestions.AddLast(("Science Question " + i));
-                _sportsQuestions.AddLast(("Sports Question " + i));
-                _rockQuestions.AddLast(CreateRockQuestion(i));
-            }
-        }
-
-        public string CreateRockQuestion(int index)
-        {
-            return "Rock Question " + index;
+            _category = new Category();
         }
 
         public bool IsPlayable()
@@ -104,25 +89,8 @@ namespace Trivia
 
         private void AskQuestion()
         {
-            switch (CurrentCategory())
-            {
-                case "Pop":
-                    Console.WriteLine(_popQuestions.First());
-                    _popQuestions.RemoveFirst();
-                    break;
-                case "Science":
-                    Console.WriteLine(_scienceQuestions.First());
-                    _scienceQuestions.RemoveFirst();
-                    break;
-                case "Sports":
-                    Console.WriteLine(_sportsQuestions.First());
-                    _sportsQuestions.RemoveFirst();
-                    break;
-                default:
-                    Console.WriteLine(_rockQuestions.First());
-                    _rockQuestions.RemoveFirst();
-                    break;
-            }
+            var currentCategory = CurrentCategory();
+            _category.GetQuestions(currentCategory);
         }
 
         private string CurrentCategory()
