@@ -148,27 +148,10 @@ namespace Trivia
 
         public bool WasCorrectlyAnswered()
         {
-            bool winner;
-            if (_inPenaltyBox[_currentPlayer])
-            {
-                if (_inPenaltyBox[_currentPlayer])
-                {
-                    RewardPlayer();
-                    winner = DidPlayerNotWin();
-                    NextPlayer();
-                    return winner;
-                }
-                
-                NextPlayer();
-                return true;
-            }
-
-        
             RewardPlayer();
-            winner = DidPlayerNotWin();
+            var winner = DidPlayerNotWin();
             NextPlayer();
             return winner;
-        
         }
 
         public bool WrongAnswer()
