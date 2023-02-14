@@ -153,14 +153,13 @@ namespace Trivia
                             + " Gold Coins.");
 
                     winner = DidPlayerNotWin();
-                    _currentPlayer++;
-                    if (_currentPlayer == _players.Count) _currentPlayer = 0;
+                    NextPlayer();
 
                     return winner;
                 }
-
-                _currentPlayer++;
-                if (_currentPlayer == _players.Count) _currentPlayer = 0;
+                
+                NextPlayer();
+                
                 return true;
             }
 
@@ -173,8 +172,8 @@ namespace Trivia
                               + " Gold Coins.");
 
             winner = DidPlayerNotWin();
-            _currentPlayer++;
-            if (_currentPlayer == _players.Count) _currentPlayer = 0;
+            
+            NextPlayer();
 
             return winner;
         
@@ -186,9 +185,14 @@ namespace Trivia
             Console.WriteLine(_players[_currentPlayer] + " was sent to the penalty box");
             _inPenaltyBox[_currentPlayer] = true;
 
+            NextPlayer();
+            return true;
+        }
+
+        private void NextPlayer()
+        {
             _currentPlayer++;
             if (_currentPlayer == _players.Count) _currentPlayer = 0;
-            return true;
         }
 
 
