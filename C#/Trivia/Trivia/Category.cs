@@ -23,9 +23,9 @@ public class Category
         }
     }
 
-    public void GetQuestions(string currentCategory)
+    public void GetQuestions(int place)
     {
-        switch (currentCategory)
+        switch (CurrentCategory(place))
         {
             case "Pop":
                 Console.WriteLine(_popQuestions.First?.Value);
@@ -43,6 +43,27 @@ public class Category
                 Console.WriteLine(_rockQuestions.First?.Value);
                 _rockQuestions.RemoveFirst();
                 break;
+        }
+    }
+
+    public string CurrentCategory(int place)
+    {
+        switch (place)
+        {
+            case 0:
+            case 4:
+            case 8:
+                return "Pop";
+            case 1:
+            case 5:
+            case 9:
+                return "Science";
+            case 2:
+            case 6:
+            case 10:
+                return "Sports";
+            default:
+                return "Rock";
         }
     }
 }

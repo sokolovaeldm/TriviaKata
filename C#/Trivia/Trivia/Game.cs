@@ -60,14 +60,14 @@ namespace Trivia
                     _inPenaltyBox[_currentPlayer] = false;
                     Console.WriteLine(_players[_currentPlayer] + " is getting out of the penalty box");
                     UpdatePosition(roll);
-                    Console.WriteLine("The category is " + CurrentCategory());
+                    Console.WriteLine("The category is " + _category.CurrentCategory(_places[_currentPlayer]));
                     AskQuestion();
                 }
             }
             else
             {
                 UpdatePosition(roll);
-                Console.WriteLine("The category is " + CurrentCategory());
+                Console.WriteLine("The category is " + _category.CurrentCategory(_places[_currentPlayer]));
                 AskQuestion();
             }
         }
@@ -89,29 +89,7 @@ namespace Trivia
 
         private void AskQuestion()
         {
-            var currentCategory = CurrentCategory();
-            _category.GetQuestions(currentCategory);
-        }
-
-        private string CurrentCategory()
-        {
-            switch (_places[_currentPlayer])
-            {
-                case 0:
-                case 4:
-                case 8:
-                    return "Pop";
-                case 1:
-                case 5:
-                case 9:
-                    return "Science";
-                case 2:
-                case 6:
-                case 10:
-                    return "Sports";
-                default:
-                    return "Rock";
-            }
+            _category.GetQuestions(_places[_currentPlayer]);
         }
 
         public bool WasCorrectlyAnswered()
