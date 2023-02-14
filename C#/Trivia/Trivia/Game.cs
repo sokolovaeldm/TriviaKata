@@ -145,14 +145,10 @@ namespace Trivia
             {
                 if (_isGettingOutOfPenaltyBox)
                 {
-                    Console.WriteLine("Answer was correct!!!!");
-                    _purses[_currentPlayer]++;
-                    Console.WriteLine(_players[_currentPlayer]
-                            + " now has "
-                            + _purses[_currentPlayer]
-                            + " Gold Coins.");
+                    RewardPlayer();
 
                     winner = DidPlayerNotWin();
+                    
                     NextPlayer();
 
                     return winner;
@@ -164,12 +160,7 @@ namespace Trivia
             }
 
         
-            Console.WriteLine("Answer was correct!!!!");
-            _purses[_currentPlayer]++;
-            Console.WriteLine(_players[_currentPlayer]
-                              + " now has "
-                              + _purses[_currentPlayer]
-                              + " Gold Coins.");
+            RewardPlayer();
 
             winner = DidPlayerNotWin();
             
@@ -177,6 +168,16 @@ namespace Trivia
 
             return winner;
         
+        }
+
+        private void RewardPlayer()
+        {
+            Console.WriteLine("Answer was correct!!!!");
+            _purses[_currentPlayer]++;
+            Console.WriteLine(_players[_currentPlayer]
+                              + " now has "
+                              + _purses[_currentPlayer]
+                              + " Gold Coins.");
         }
 
         public bool WrongAnswer()
