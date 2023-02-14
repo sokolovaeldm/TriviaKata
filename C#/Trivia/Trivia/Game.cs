@@ -71,12 +71,7 @@ namespace Trivia
                     _isGettingOutOfPenaltyBox = true;
 
                     Console.WriteLine(_players[_currentPlayer] + " is getting out of the penalty box");
-                    _places[_currentPlayer] = _places[_currentPlayer] + roll;
-                    if (_places[_currentPlayer] > 11) _places[_currentPlayer] = _places[_currentPlayer] - 12;
-
-                    Console.WriteLine(_players[_currentPlayer]
-                            + "'s new location is "
-                            + _places[_currentPlayer]);
+                    UpdatePosition(roll);
                     Console.WriteLine("The category is " + CurrentCategory());
                     AskQuestion();
                 }
@@ -88,15 +83,21 @@ namespace Trivia
             }
             else
             {
-                _places[_currentPlayer] = _places[_currentPlayer] + roll;
-                if (_places[_currentPlayer] > 11) _places[_currentPlayer] = _places[_currentPlayer] - 12;
+                UpdatePosition(roll);
 
-                Console.WriteLine(_players[_currentPlayer]
-                        + "'s new location is "
-                        + _places[_currentPlayer]);
                 Console.WriteLine("The category is " + CurrentCategory());
                 AskQuestion();
             }
+        }
+
+        private void UpdatePosition(int roll)
+        {
+            _places[_currentPlayer] = _places[_currentPlayer] + roll;
+            if (_places[_currentPlayer] > 11) _places[_currentPlayer] = _places[_currentPlayer] - 12;
+
+            Console.WriteLine(_players[_currentPlayer]
+                              + "'s new location is "
+                              + _places[_currentPlayer]);
         }
 
         private void AskQuestion()
@@ -139,6 +140,7 @@ namespace Trivia
 
         public bool WasCorrectlyAnswered()
         {
+            bool winner;
             if (_inPenaltyBox[_currentPlayer])
             {
                 if (_isGettingOutOfPenaltyBox)
@@ -150,34 +152,32 @@ namespace Trivia
                             + _purses[_currentPlayer]
                             + " Gold Coins.");
 
-                    var winner = DidPlayerWin();
+                    winner = DidPlayerNotWin();
                     _currentPlayer++;
                     if (_currentPlayer == _players.Count) _currentPlayer = 0;
 
                     return winner;
                 }
-                else
-                {
-                    _currentPlayer++;
-                    if (_currentPlayer == _players.Count) _currentPlayer = 0;
-                    return true;
-                }
-            }
-            else
-            {
-                Console.WriteLine("Answer was corrent!!!!");
-                _purses[_currentPlayer]++;
-                Console.WriteLine(_players[_currentPlayer]
-                        + " now has "
-                        + _purses[_currentPlayer]
-                        + " Gold Coins.");
 
-                var winner = DidPlayerWin();
                 _currentPlayer++;
                 if (_currentPlayer == _players.Count) _currentPlayer = 0;
-
-                return winner;
+                return true;
             }
+
+        
+            Console.WriteLine("Answer was corrent!!!!");
+            _purses[_currentPlayer]++;
+            Console.WriteLine(_players[_currentPlayer]
+                              + " now has "
+                              + _purses[_currentPlayer]
+                              + " Gold Coins.");
+
+            winner = DidPlayerNotWin();
+            _currentPlayer++;
+            if (_currentPlayer == _players.Count) _currentPlayer = 0;
+
+            return winner;
+        
         }
 
         public bool WrongAnswer()
@@ -192,9 +192,9 @@ namespace Trivia
         }
 
 
-        private bool DidPlayerWin()
+        private bool DidPlayerNotWin()
         {
-            return !(_purses[_currentPlayer] == 6);
+            return _purses[_currentPlayer] != 6;
         }
     }
 
