@@ -20,9 +20,9 @@ public class TriviaTests
         var thisPath = GetThisFilePath();
         var thisDirectory = Path.GetDirectoryName(thisPath);
         var expectedLogPath = thisDirectory + "/goldenmaster.txt";
-
-        var goldenMaster = File.ReadAllText(expectedLogPath);
         
+        // File.WriteAllText(expectedLogPath, writer.ToString());
+        var goldenMaster = File.ReadAllText(expectedLogPath);
         Assert.Equal(goldenMaster, writer.ToString());
     }
     
