@@ -19,7 +19,6 @@ namespace Trivia
         private readonly LinkedList<string> _rockQuestions = new LinkedList<string>();
 
         private int _currentPlayer;
-        private bool _isGettingOutOfPenaltyBox;
 
         public Game()
         {
@@ -69,12 +68,11 @@ namespace Trivia
                 if (IsEven(roll))
                 {
                     Console.WriteLine(_players[_currentPlayer] + " is not getting out of the penalty box");
-                    _isGettingOutOfPenaltyBox = false;
+                    _inPenaltyBox[_currentPlayer] = true;
                 }
                 else
                 {
-                    _isGettingOutOfPenaltyBox = true;
-
+                    _inPenaltyBox[_currentPlayer] = false;
                     Console.WriteLine(_players[_currentPlayer] + " is getting out of the penalty box");
                     UpdatePosition(roll);
                     Console.WriteLine("The category is " + CurrentCategory());
@@ -84,7 +82,6 @@ namespace Trivia
             else
             {
                 UpdatePosition(roll);
-
                 Console.WriteLine("The category is " + CurrentCategory());
                 AskQuestion();
             }
@@ -154,41 +151,24 @@ namespace Trivia
             bool winner;
             if (_inPenaltyBox[_currentPlayer])
             {
-                if (_isGettingOutOfPenaltyBox)
+                if (_inPenaltyBox[_currentPlayer])
                 {
                     RewardPlayer();
-
                     winner = DidPlayerNotWin();
-                    
                     NextPlayer();
-
                     return winner;
                 }
                 
                 NextPlayer();
-                
                 return true;
             }
 
         
             RewardPlayer();
-
             winner = DidPlayerNotWin();
-            
             NextPlayer();
-
             return winner;
         
-        }
-
-        private void RewardPlayer()
-        {
-            Console.WriteLine("Answer was correct!!!!");
-            _purses[_currentPlayer]++;
-            Console.WriteLine(_players[_currentPlayer]
-                              + " now has "
-                              + _purses[_currentPlayer]
-                              + " Gold Coins.");
         }
 
         public bool WrongAnswer()
@@ -199,6 +179,16 @@ namespace Trivia
 
             NextPlayer();
             return true;
+        }
+
+        private void RewardPlayer()
+        {
+            Console.WriteLine("Answer was correct!!!!");
+            _purses[_currentPlayer]++;
+            Console.WriteLine(_players[_currentPlayer]
+                              + " now has "
+                              + _purses[_currentPlayer]
+                              + " Gold Coins.");
         }
 
         private void NextPlayer()
