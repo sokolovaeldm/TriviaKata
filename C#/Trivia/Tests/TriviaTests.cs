@@ -17,9 +17,9 @@ public class TriviaTests
         string[] emptyStringArray = Array.Empty<string>();
         GameRunner.Main(emptyStringArray);
 
-        string thisPath = GetThisFilePath();
-        string thisDirectory = Path.GetDirectoryName(thisPath);
-        string expectedLogPath = thisDirectory + "/goldenmaster.txt";
+        var thisPath = GetThisFilePath();
+        var thisDirectory = Path.GetDirectoryName(thisPath);
+        var expectedLogPath = thisDirectory + "/goldenmaster.txt";
 
         var goldenMaster = File.ReadAllText(expectedLogPath);
         
