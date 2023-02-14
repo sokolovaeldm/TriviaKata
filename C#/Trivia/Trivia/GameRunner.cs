@@ -13,7 +13,7 @@ namespace Trivia
             aGame.Add("Chet");
             aGame.Add("Pat");
             aGame.Add("Sue");
-
+            
             var rand = new Random();
 
             do
