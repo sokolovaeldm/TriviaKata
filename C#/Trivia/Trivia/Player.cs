@@ -5,16 +5,16 @@ namespace Trivia;
 public class Player
 {
     public string Name { get; }
-    public int Position { get; set; }
-    public int PurseCoins { get; set; }
-    public bool IsInPenaltyBox { get; set; }
+    public int Position { get; private set; }
+    public bool IsInPenaltyBox { get; private set; }
+    private int PurseCoins { get; set; }
     
     public Player(string name)
     {
         Name = name;
         Position = 0;
-        PurseCoins = 0;
         IsInPenaltyBox = false;
+        PurseCoins = 0;
     }
 
     public void UpdatePosition(int roll, int boardSize)
