@@ -42,27 +42,15 @@ namespace Trivia
 
         public void Roll(int roll)
         {
-            var playerName = _activePlayer.Name;
-            Console.WriteLine(playerName + " is the current player");
+            Console.WriteLine(_activePlayer.Name + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
 
             if (_activePlayer.IsInPenaltyBox)
             {
-                if (IsEven(roll))
-                {
-                    Console.WriteLine(playerName + " is not getting out of the penalty box");
-                    _activePlayer.IsInPenaltyBox = true;
-                }
-                else
-                {
-                    _activePlayer.IsInPenaltyBox = false;
-                    Console.WriteLine(playerName + " is getting out of the penalty box");
-                    _activePlayer.UpdatePosition(roll, BoardSize);
-                    Console.WriteLine("The category is " + _category.CurrentCategory(_activePlayer.Position));
-                    AskQuestion();
-                }
+                _activePlayer.SetIsInPenaltyBox(IsEven(roll));
             }
-            else
+            
+            if(!_activePlayer.IsInPenaltyBox)
             {
                 _activePlayer.UpdatePosition(roll, BoardSize);
                 Console.WriteLine("The category is " + _category.CurrentCategory(_activePlayer.Position));

@@ -24,4 +24,18 @@ public class Player
                           + "'s new location is "
                           + Position);
     }
+
+    public void SetIsInPenaltyBox(bool isEven)
+    {
+        if (isEven)
+        {
+            Console.WriteLine(Name + " is not getting out of the penalty box");
+            IsInPenaltyBox = true;
+        }
+        else
+        {
+            IsInPenaltyBox = false;
+            Console.WriteLine(Name + " is getting out of the penalty box");
+        }
+    }
 }
