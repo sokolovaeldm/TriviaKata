@@ -65,8 +65,7 @@ namespace Trivia
 
         public bool WasCorrectlyAnswered()
         {
-            _activePlayer.RewardPlayer();
-            var winner = _activePlayer.DidPlayerNotWin();
+            var winner = _activePlayer.RewardPlayer();
             NextPlayer();
             return winner;
         }

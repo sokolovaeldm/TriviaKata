@@ -41,7 +41,7 @@ public class Player
         }
     }
 
-    public void RewardPlayer()
+    public bool RewardPlayer()
     {
         Console.WriteLine("Answer was correct!!!!");
         PurseCoins++;
@@ -49,10 +49,11 @@ public class Player
                           + " now has "
                           + PurseCoins
                           + " Gold Coins.");
+        return !DidPlayerWin();
     }
 
-    public bool DidPlayerNotWin()
+    public bool DidPlayerWin()
     {
-        return PurseCoins != 6;
+        return PurseCoins == 6;
     }
 }
