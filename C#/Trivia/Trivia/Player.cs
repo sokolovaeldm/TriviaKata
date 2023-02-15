@@ -1,4 +1,6 @@
-﻿namespace Trivia;
+﻿using System;
+
+namespace Trivia;
 
 public class Player
 {
@@ -15,4 +17,11 @@ public class Player
         IsInPenaltyBox = false;
     }
 
+    public void UpdatePosition(int roll, int boardSize)
+    {
+        Position = (Position + roll) % boardSize;
+        Console.WriteLine(Name
+                          + "'s new location is "
+                          + Position);
+    }
 }

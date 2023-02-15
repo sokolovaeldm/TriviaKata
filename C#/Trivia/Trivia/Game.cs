@@ -7,6 +7,8 @@ namespace Trivia
 {
     public class Game
     {
+        private const int BoardSize = 12;
+
         private readonly List<Player> _players = new();
         private readonly Category _category;
         private Player _activePlayer;
@@ -55,14 +57,14 @@ namespace Trivia
                 {
                     _activePlayer.IsInPenaltyBox = false;
                     Console.WriteLine(playerName + " is getting out of the penalty box");
-                    UpdatePosition(roll);
+                    _activePlayer.UpdatePosition(roll, BoardSize);
                     Console.WriteLine("The category is " + _category.CurrentCategory(_activePlayer.Position));
                     AskQuestion();
                 }
             }
             else
             {
-                UpdatePosition(roll);
+                _activePlayer.UpdatePosition(roll, BoardSize);
                 Console.WriteLine("The category is " + _category.CurrentCategory(_activePlayer.Position));
                 AskQuestion();
             }
@@ -71,15 +73,6 @@ namespace Trivia
         private static bool IsEven(int roll)
         {
             return roll % 2 == 0;
-        }
-
-        private void UpdatePosition(int roll)
-        {
-            _activePlayer.Position = (_activePlayer.Position + roll) % 12;
-
-            Console.WriteLine(_activePlayer.Name
-                              + "'s new location is "
-                              + _activePlayer.Position);
         }
 
         private void AskQuestion()
