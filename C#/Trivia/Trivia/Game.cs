@@ -8,7 +8,6 @@ namespace Trivia
     {
         private readonly List<Player> _players = new();
 
-        private readonly int[] _places = new int[6];
         private readonly int[] _purses = new int[6];
 
         private readonly bool[] _inPenaltyBox = new bool[6];
@@ -29,7 +28,6 @@ namespace Trivia
         public bool Add(string playerName)
         {
             _players.Add(new Player(playerName));
-            _places[HowManyPlayers()] = 0;
             _purses[HowManyPlayers()] = 0;
             _inPenaltyBox[HowManyPlayers()] = false;
 
@@ -45,7 +43,8 @@ namespace Trivia
 
         public void Roll(int roll)
         {
-            var playerName = _players[_currentPlayer].Name;
+            var activePlayer = _players[_currentPlayer];
+            var playerName = activePlayer.Name;
             Console.WriteLine(playerName + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
 
@@ -60,16 +59,16 @@ namespace Trivia
                 {
                     _inPenaltyBox[_currentPlayer] = false;
                     Console.WriteLine(playerName + " is getting out of the penalty box");
-                    UpdatePosition(roll);
-                    Console.WriteLine("The category is " + _category.CurrentCategory(_places[_currentPlayer]));
-                    AskQuestion();
+                    UpdatePosition(activePlayer, roll);
+                    Console.WriteLine("The category is " + _category.CurrentCategory(activePlayer.Position));
+                    AskQuestion(activePlayer);
                 }
             }
             else
             {
-                UpdatePosition(roll);
-                Console.WriteLine("The category is " + _category.CurrentCategory(_places[_currentPlayer]));
-                AskQuestion();
+                UpdatePosition(activePlayer, roll);
+                Console.WriteLine("The category is " + _category.CurrentCategory(activePlayer.Position));
+                AskQuestion(activePlayer);
             }
         }
 
@@ -78,19 +77,18 @@ namespace Trivia
             return roll % 2 == 0;
         }
 
-        private void UpdatePosition(int roll)
+        private void UpdatePosition(Player activePlayer, int roll)
         {
-            _places[_currentPlayer] = _places[_currentPlayer] + roll;
-            if (_places[_currentPlayer] > 11) _places[_currentPlayer] = _places[_currentPlayer] - 12;
+            activePlayer.Position = (activePlayer.Position + roll) % 12;
 
-            Console.WriteLine(_players[_currentPlayer].Name
+            Console.WriteLine(activePlayer.Name
                               + "'s new location is "
-                              + _places[_currentPlayer]);
+                              + activePlayer.Position);
         }
 
-        private void AskQuestion()
+        private void AskQuestion(Player activePlayer)
         {
-            _category.GetQuestions(_places[_currentPlayer]);
+            _category.GetQuestions(activePlayer.Position);
         }
 
         public bool WasCorrectlyAnswered()
