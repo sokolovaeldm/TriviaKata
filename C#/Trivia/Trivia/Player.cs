@@ -40,4 +40,19 @@ public class Player
             Console.WriteLine(Name + " is getting out of the penalty box");
         }
     }
+
+    public void RewardPlayer()
+    {
+        Console.WriteLine("Answer was correct!!!!");
+        PurseCoins++;
+        Console.WriteLine(Name
+                          + " now has "
+                          + PurseCoins
+                          + " Gold Coins.");
+    }
+
+    public bool DidPlayerNotWin()
+    {
+        return PurseCoins != 6;
+    }
 }

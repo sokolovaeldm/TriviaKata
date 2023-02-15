@@ -23,7 +23,7 @@ public class Category
         }
     }
 
-    public void GetQuestions(int place)
+    public void GetQuestion(int place)
     {
         switch (CurrentCategory(place))
         {

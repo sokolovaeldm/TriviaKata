@@ -59,19 +59,14 @@ namespace Trivia
             {
                 _activePlayer.UpdatePosition(roll, BoardSize);
                 Console.WriteLine("The category is " + _category.CurrentCategory(_activePlayer.Position));
-                AskQuestion();
+                _category.GetQuestion(_activePlayer.Position);
             }
-        }
-
-        private void AskQuestion()
-        {
-            _category.GetQuestions(_activePlayer.Position);
         }
 
         public bool WasCorrectlyAnswered()
         {
-            RewardPlayer();
-            var winner = DidPlayerNotWin();
+            _activePlayer.RewardPlayer();
+            var winner = _activePlayer.DidPlayerNotWin();
             NextPlayer();
             return winner;
         }
@@ -86,26 +81,11 @@ namespace Trivia
             return true;
         }
 
-        private void RewardPlayer()
-        {
-            Console.WriteLine("Answer was correct!!!!");
-            _activePlayer.PurseCoins++;
-            Console.WriteLine(_activePlayer.Name
-                              + " now has "
-                              + _activePlayer.PurseCoins
-                              + " Gold Coins.");
-        }
-
         private void NextPlayer()
         {
             var currentIndex = _players.IndexOf(_activePlayer);
             var nextIndex = (currentIndex + 1) % _players.Count;
             _activePlayer = _players[nextIndex];
-        }
-        
-        private bool DidPlayerNotWin()
-        {
-            return _activePlayer.PurseCoins != 6;
         }
     }
 }
