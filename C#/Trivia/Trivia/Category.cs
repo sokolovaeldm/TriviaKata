@@ -6,7 +6,7 @@ namespace Trivia;
 public abstract class Category
 {
     protected LinkedList<string> _questions = new();
-    public readonly string CategoryName;
+    private readonly string CategoryName;
     
     public Category(string categoryName)
     {
