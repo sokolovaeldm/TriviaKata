@@ -10,14 +10,14 @@ namespace Trivia
         private const int BoardSize = 12;
 
         private readonly List<Player> _players = new();
-        private readonly Category _category;
+        private readonly QuestionFactory _questionFactory;
         private Player _activePlayer;
 
         public Game(List<string> playersName)
         {
             IsPlayable(playersName);
             
-            _category = new Category();
+            _questionFactory = new QuestionFactory();
             foreach (var playerName in playersName)
             {
                 Add(playerName);
@@ -58,8 +58,8 @@ namespace Trivia
             if (!_activePlayer.IsInPenaltyBox)
             {
                 _activePlayer.UpdatePosition(roll, BoardSize);
-                Console.WriteLine("The category is " + _category.CurrentCategory(_activePlayer.Position));
-                _category.GetQuestion(_activePlayer.Position);
+                Console.WriteLine("The category is " + _questionFactory.CurrentCategory(_activePlayer.Position));
+                _questionFactory.GetQuestion(_activePlayer.Position);
             }
         }
 

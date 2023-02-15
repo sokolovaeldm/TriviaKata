@@ -1,69 +1,55 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Trivia;
 
-public class Category
+public abstract class Category
 {
-    private readonly LinkedList<string> _popQuestions = new LinkedList<string>();
-    private readonly LinkedList<string> _scienceQuestions = new LinkedList<string>();
-    private readonly LinkedList<string> _sportsQuestions = new LinkedList<string>();
-    private readonly LinkedList<string> _rockQuestions = new LinkedList<string>();
-
+    protected LinkedList<string> _questions = new();
     
-    public Category()
+    public Category(string categoryName)
     {
         for (var i = 0; i < 50; i++)
         {
-            _popQuestions.AddLast("Pop Question " + i);
-            _scienceQuestions.AddLast(("Science Question " + i));
-            _sportsQuestions.AddLast(("Sports Question " + i));
-            _rockQuestions.AddLast("Rock Question " + i);
+            _questions.AddLast($"{categoryName} Question {i}");
         }
     }
-
-    public void GetQuestion(int place)
+    
+    public void GetQuestion()
     {
-        switch (CurrentCategory(place))
-        {
-            case "Pop":
-                Console.WriteLine(_popQuestions.First?.Value);
-                _popQuestions.RemoveFirst();
-                break;
-            case "Science":
-                Console.WriteLine(_scienceQuestions.First?.Value);
-                _scienceQuestions.RemoveFirst();
-                break;
-            case "Sports":
-                Console.WriteLine(_sportsQuestions.First?.Value);
-                _sportsQuestions.RemoveFirst();
-                break;
-            default:
-                Console.WriteLine(_rockQuestions.First?.Value);
-                _rockQuestions.RemoveFirst();
-                break;
-        }
+        Console.WriteLine(_questions.First?.Value);
+        _questions.RemoveFirst();
     }
+}
 
-    public string CurrentCategory(int place)
+public class PopCategory : Category
+{
+    private const string CategoryName = "Pop";
+    public PopCategory() : base(CategoryName)
     {
-        switch (place)
-        {
-            case 0:
-            case 4:
-            case 8:
-                return "Pop";
-            case 1:
-            case 5:
-            case 9:
-                return "Science";
-            case 2:
-            case 6:
-            case 10:
-                return "Sports";
-            default:
-                return "Rock";
-        }
+    }
+}
+
+public class ScienceCategory : Category
+{
+    private const string CategoryName = "Science";
+    public ScienceCategory() : base(CategoryName)
+    {
+    }
+}
+
+public class SportsCategory : Category
+{
+    private const string CategoryName = "Sports";
+    public SportsCategory() : base(CategoryName)
+    {
+    }
+}
+
+public class RockCategory : Category
+{
+    private const string CategoryName = "Rock";
+    public RockCategory() : base(CategoryName)
+    {
     }
 }
