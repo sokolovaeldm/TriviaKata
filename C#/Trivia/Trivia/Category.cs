@@ -19,6 +19,7 @@ public abstract class Category
     
     public void GetQuestion()
     {
+        Console.WriteLine("The category is " + CategoryName);
         Console.WriteLine(_questions.First?.Value);
         _questions.RemoveFirst();
     }
