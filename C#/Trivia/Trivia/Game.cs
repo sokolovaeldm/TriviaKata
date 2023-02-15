@@ -72,10 +72,7 @@ namespace Trivia
 
         public bool WrongAnswer()
         {
-            Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(_activePlayer.Name + " was sent to the penalty box");
-            _activePlayer.IsInPenaltyBox = true;
-
+            _activePlayer.GoToPenaltyBox();
             NextPlayer();
             return true;
         }

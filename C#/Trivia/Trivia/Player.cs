@@ -56,4 +56,11 @@ public class Player
     {
         return PurseCoins == 6;
     }
+
+    public void GoToPenaltyBox()
+    {
+        Console.WriteLine("Question was incorrectly answered");
+        Console.WriteLine(this.Name + " was sent to the penalty box");
+        this.IsInPenaltyBox = true;
+    }
 }
