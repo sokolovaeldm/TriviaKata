@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace Trivia
@@ -7,36 +8,34 @@ namespace Trivia
     public class Game
     {
         private readonly List<Player> _players = new();
-
         private readonly Category _category;
         private Player _activePlayer;
 
-        public Game()
+        public Game(List<string> playersName)
         {
+            IsPlayable(playersName);
+            
             _category = new Category();
+            foreach (var playerName in playersName)
+            {
+                Add(playerName);
+            }
+
+            _activePlayer = _players.First();
         }
 
-        public bool IsPlayable()
+        private void IsPlayable(List<string> playersName)
         {
-            return (HowManyPlayers() >= 2);
+            if(playersName.Count < 2)
+                throw new ValidationException("Players should be more than 2");
         }
 
-        public bool Add(string playerName)
+        private void Add(string playerName)
         {
             _players.Add(new Player(playerName));
             
-            if (_activePlayer is null)
-            {
-                _activePlayer = _players.First();
-            }
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + _players.Count);
-            return true;
-        }
-
-        public int HowManyPlayers()
-        {
-            return _players.Count;
         }
 
         public void Roll(int roll)
@@ -122,13 +121,10 @@ namespace Trivia
             var nextIndex = (currentIndex + 1) % _players.Count;
             _activePlayer = _players[nextIndex];
         }
-
-
+        
         private bool DidPlayerNotWin()
         {
             return _activePlayer.PurseCoins != 6;
         }
-        
     }
-
 }
