@@ -25,8 +25,10 @@ public class Player
                           + Position);
     }
 
-    public void SetIsInPenaltyBox(bool isEven)
+    public void ShouldStayPenaltyBox(bool isEven)
     {
+        
+        
         if (isEven)
         {
             Console.WriteLine(Name + " is not getting out of the penalty box");

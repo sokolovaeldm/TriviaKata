@@ -47,20 +47,20 @@ namespace Trivia
 
             if (_activePlayer.IsInPenaltyBox)
             {
-                _activePlayer.SetIsInPenaltyBox(IsEven(roll));
+                _activePlayer.ShouldStayPenaltyBox(roll % 2 == 0);
             }
             
-            if(!_activePlayer.IsInPenaltyBox)
+            PlayerTurn(roll);
+        }
+
+        private void PlayerTurn(int roll)
+        {
+            if (!_activePlayer.IsInPenaltyBox)
             {
                 _activePlayer.UpdatePosition(roll, BoardSize);
                 Console.WriteLine("The category is " + _category.CurrentCategory(_activePlayer.Position));
                 AskQuestion();
             }
-        }
-
-        private static bool IsEven(int roll)
-        {
-            return roll % 2 == 0;
         }
 
         private void AskQuestion()
