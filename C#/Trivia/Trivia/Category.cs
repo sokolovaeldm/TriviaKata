@@ -5,12 +5,12 @@ namespace Trivia;
 
 public abstract class Category
 {
-    protected LinkedList<string> _questions = new();
-    private readonly string CategoryName;
-    
-    public Category(string categoryName)
+    private readonly LinkedList<string> _questions = new();
+    private readonly string _categoryName;
+
+    protected Category(string categoryName)
     {
-        CategoryName = categoryName;
+        _categoryName = categoryName;
         for (var i = 0; i < 50; i++)
         {
             _questions.AddLast($"{categoryName} Question {i}");
@@ -19,7 +19,7 @@ public abstract class Category
     
     public void GetQuestion()
     {
-        Console.WriteLine("The category is " + CategoryName);
+        Console.WriteLine("The category is " + _categoryName);
         Console.WriteLine(_questions.First?.Value);
         _questions.RemoveFirst();
     }

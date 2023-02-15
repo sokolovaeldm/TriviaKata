@@ -1,14 +1,9 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Trivia;
 
-//Categories - creator
 public class QuestionFactory
 {
-    //ConcreteCreators
-
     private readonly List<Category> _categories;
     
     public QuestionFactory()
