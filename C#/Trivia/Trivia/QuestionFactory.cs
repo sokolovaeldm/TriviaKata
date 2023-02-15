@@ -20,43 +20,20 @@ public class QuestionFactory
     //Creator method
     public void GetQuestion(int place)
     {
-        switch (CurrentCategory(place))
-        {
-            case "Pop":
-                _popCategory.GetQuestion();
-                break;
-            case "Science":
-                _scienceCategory.GetQuestion();
-                break;
-            case "Sports":
-                _sportsCategory.GetQuestion();
-                break;
-            default:
-                _rockCategory.GetQuestion();
-                break;
-        }
+        var currentCategory = CurrentCategory(place);
+        Console.WriteLine("The category is " + currentCategory.CategoryName);
+        
+        currentCategory.GetQuestion();
     }
 
-    //Categories class (creator)
-    public string CurrentCategory(int place)
+    private Category CurrentCategory(int place)
     {
-
-        switch (place)
+        return (place % 4) switch
         {
-            case 0:
-            case 4:
-            case 8:
-                return "Pop";
-            case 1:
-            case 5:
-            case 9:
-                return "Science";
-            case 2:
-            case 6:
-            case 10:
-                return "Sports";
-            default:
-                return "Rock";
-        }
+            0 => _popCategory,
+            1 => _scienceCategory,
+            2 => _sportsCategory,
+            _ => _rockCategory
+        };
     }
 }

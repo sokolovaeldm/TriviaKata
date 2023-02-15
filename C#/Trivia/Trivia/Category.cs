@@ -6,9 +6,11 @@ namespace Trivia;
 public abstract class Category
 {
     protected LinkedList<string> _questions = new();
+    public readonly string CategoryName;
     
     public Category(string categoryName)
     {
+        CategoryName = categoryName;
         for (var i = 0; i < 50; i++)
         {
             _questions.AddLast($"{categoryName} Question {i}");
@@ -24,32 +26,28 @@ public abstract class Category
 
 public class PopCategory : Category
 {
-    private const string CategoryName = "Pop";
-    public PopCategory() : base(CategoryName)
+    public PopCategory() : base("Pop")
     {
     }
 }
 
 public class ScienceCategory : Category
 {
-    private const string CategoryName = "Science";
-    public ScienceCategory() : base(CategoryName)
+    public ScienceCategory() : base("Science")
     {
     }
 }
 
 public class SportsCategory : Category
 {
-    private const string CategoryName = "Sports";
-    public SportsCategory() : base(CategoryName)
+    public SportsCategory() : base("Sports")
     {
     }
 }
 
 public class RockCategory : Category
 {
-    private const string CategoryName = "Rock";
-    public RockCategory() : base(CategoryName)
+    public RockCategory() : base("Rock")
     {
     }
 }

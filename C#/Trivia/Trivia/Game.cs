@@ -58,7 +58,6 @@ namespace Trivia
             if (!_activePlayer.IsInPenaltyBox)
             {
                 _activePlayer.UpdatePosition(roll, BoardSize);
-                Console.WriteLine("The category is " + _questionFactory.CurrentCategory(_activePlayer.Position));
                 _questionFactory.GetQuestion(_activePlayer.Position);
             }
         }
